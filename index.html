@@ -3,7 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<title>妙法蓮華經 · 線上讀本 v1.4</title>
+<link rel="canonical" href="https://kuohuafan.github.io/Lotus-Sutra/">
+<meta name="description" content="《妙法蓮華經》七卷二十八品全文線上讀本。姚秦鳩摩羅什譯，底本大正藏 T09 no.262。依天台《法華文句》二門六段編排，附白話語譯、要義提點、版本註記與法華七喻索引。">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="妙法蓮華經 · 線上讀本">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:url" content="https://kuohuafan.github.io/Lotus-Sutra/">
+<meta property="og:title" content="妙法蓮華經 · 線上讀本">
+<meta property="og:description" content="七卷二十八品全文。跡門開權顯實，本門開跡顯本，法華七喻貫串。附白話語譯、要義提點與版本註記。底本：大正藏 T09 no.262（CBETA）。">
+<meta property="og:image" content="https://kuohuafan.github.io/Lotus-Sutra/og-cover.png">
+<meta property="og:image:secure_url" content="https://kuohuafan.github.io/Lotus-Sutra/og-cover.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="妙法蓮華經 · 線上讀本">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="妙法蓮華經 · 線上讀本">
+<meta name="twitter:description" content="七卷二十八品全文。附白話語譯、要義提點與版本註記。底本：大正藏 T09 no.262（CBETA）。">
+<meta name="twitter:image" content="https://kuohuafan.github.io/Lotus-Sutra/og-cover.png">
+<title>妙法蓮華經 · 線上讀本 v1.5</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
@@ -293,7 +313,7 @@ main{max-width:720px;margin:0 auto;padding:26px 18px 100px}
 <nav class="drawer" id="drawer" aria-label="經文目錄">
   <div class="drawer-head">
     <span class="t">目錄</span>
-    <span class="s">七卷 · 二十八品 · v1.4</span>
+    <span class="s">七卷 · 二十八品 · v1.5</span>
   </div>
   <div class="drawer-body" id="drawerBody"></div>
 </nav>
@@ -801,7 +821,7 @@ function render(){
   for(const k in TEXT) TEXT[k].forEach(s=>{s.t===G?SEGG++:SEGP++;CHARS+=s.x.replace(/[\n\u3000]/g,"").length});
   const np = 0;
   document.getElementById("coverage").textContent =
-    `版本 v1.4 · 2026-08-06　│　語料覆蓋　全文 ${nf} / 28 品　·　長行 ${SEGP} 段、重頌 ${SEGG} 段　·　淨字數 ${CHARS.toLocaleString()}　·　底本：大正新脩大藏經 T09 no.262（CBETA TEI-P5）　·　科判：天台《法華文句》`;
+    `版本 v1.5 · 2026-08-06　│　語料覆蓋　全文 ${nf} / 28 品　·　長行 ${SEGP} 段、重頌 ${SEGG} 段　·　淨字數 ${CHARS.toLocaleString()}　·　底本：大正新脩大藏經 T09 no.262（CBETA TEI-P5）　·　科判：天台《法華文句》`;
 }
 
 function verse(x){

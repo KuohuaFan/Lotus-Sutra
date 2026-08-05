@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>妙法蓮華經</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EFE7DA;
+  --card:#FBF8F1;
+  --card-2:#F5EFE3;
+  --bar:#E4DAC6;
+  --line:#DFD3BB;
+  --ink:#211D17;
+  --ink-2:#4A4237;
+  --muted:#8B8171;
+  --gold:#9A7B22;
+  --gold-soft:#C9B37A;
+  --gold-tint:#EBE0C4;
+  --serif:"Noto Serif TC","Songti TC","Source Han Serif TC",serif;
+  --sans:"Noto Sans TC","PingFang TC",sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;line-height:1.95;
+  overflow-x:hidden;
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+
+/* ---------- cover ---------- */
+body.cover-on .topbar,
+body.cover-on main,
+body.cover-on .fab{display:none}
+.cover{display:none;min-height:100dvh;padding:52px 26px 60px;text-align:center;flex-direction:column;align-items:center;justify-content:center}
+body.cover-on .cover{display:flex}
+.cover .mark{color:var(--gold);margin-bottom:34px}
+.cover h1{
+  font-size:clamp(34px,10vw,48px);font-weight:700;letter-spacing:.1em;margin:0;line-height:1.4;
+}
+.cover .hr{width:200px;height:1px;background:var(--line);margin:26px auto}
+.cover .tr{font-size:16px;color:var(--muted);letter-spacing:.16em;margin:0 0 40px}
+.cover .lede{
+  max-width:560px;font-size:17px;line-height:2.4;text-align:justify;color:var(--ink);margin:0 0 16px;
+}
+.cover .meta{
+  max-width:560px;font-family:var(--sans);font-size:12.5px;line-height:2;color:var(--muted);
+  margin:8px 0 40px;text-align:justify;
+}
+.cover .start{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--gold);color:#FBF7EC;font-size:19px;letter-spacing:.12em;
+  padding:18px 40px;border-radius:10px;
+}
+.cover .start:hover{filter:brightness(1.06)}
+
+/* ---------- top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:40;
+  display:flex;align-items:center;gap:10px;
+  padding:14px 16px;
+  background:var(--bar);
+  border-bottom:1px solid var(--line);
+}
+.icon-btn{
+  width:38px;height:38px;display:grid;place-items:center;border-radius:9px;
+  color:var(--ink);
+}
+.icon-btn:hover{background:rgba(154,123,34,.10)}
+.icon-btn[disabled]{opacity:.32;cursor:default}
+.brand{display:flex;align-items:center;gap:9px;flex:1;min-width:0}
+.brand svg{color:var(--gold);flex:none}
+.brand h1{
+  margin:0;font-size:20px;font-weight:700;letter-spacing:.06em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.counter{font-family:var(--sans);font-size:14px;color:var(--ink-2);min-width:48px;text-align:center}
+
+/* ---------- drawer ---------- */
+.scrim{position:fixed;inset:0;background:rgba(33,29,23,.42);opacity:0;pointer-events:none;transition:opacity .25s;z-index:50}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{
+  position:fixed;top:0;left:0;bottom:0;width:min(87vw,360px);
+  background:#FCFAF4;border-right:1px solid var(--line);
+  transform:translateX(-100%);transition:transform .28s cubic-bezier(.32,.72,0,1);
+  z-index:51;display:flex;flex-direction:column;
+}
+.drawer.on{transform:none}
+.drawer-head{
+  padding:20px 20px 14px;border-bottom:1px solid var(--line);background:#F7F2E7;
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+}
+.drawer-head .t{font-size:15px;letter-spacing:.34em;color:var(--gold);font-weight:500}
+.drawer-head .s{font-family:var(--sans);font-size:11.5px;color:var(--muted);letter-spacing:.06em}
+.drawer-body{overflow-y:auto;padding:6px 0 40px;flex:1;-webkit-overflow-scrolling:touch}
+
+details.nav{border-bottom:1px solid #EFE7D6}
+details.nav>summary{
+  list-style:none;cursor:pointer;
+  padding:15px 18px;display:flex;align-items:center;gap:10px;
+  font-size:16px;font-weight:500;color:var(--ink);
+}
+details.nav>summary::-webkit-details-marker{display:none}
+summary .chev{
+  flex:none;width:14px;height:14px;color:var(--gold);
+  transition:transform .22s;
+}
+details[open]>summary .chev{transform:rotate(90deg)}
+summary .sub{font-family:var(--sans);font-size:11px;color:var(--muted);margin-left:auto;letter-spacing:.04em}
+
+/* level 2 */
+details.nav details.nav{border-bottom:none;background:#F8F3E8}
+details.nav details.nav>summary{padding:11px 18px 11px 34px;font-size:14.5px;color:var(--ink-2);font-weight:400}
+details.nav details.nav>summary .cnt{font-family:var(--sans);font-size:11px;color:var(--muted);margin-left:auto}
+
+/* level 3 — leaf */
+.leaf{
+  display:flex;align-items:flex-start;gap:8px;width:100%;text-align:left;
+  padding:10px 18px 10px 50px;font-size:14.5px;line-height:1.6;color:var(--ink-2);
+  background:#FCFAF4;
+}
+.leaf:hover{background:var(--gold-tint)}
+.leaf.active{background:var(--gold-tint);color:var(--gold);font-weight:500;box-shadow:inset 3px 0 0 var(--gold)}
+.leaf .no{font-family:var(--sans);font-size:10.5px;color:var(--muted);min-width:22px;padding-top:4px}
+.leaf .st{
+  margin-left:auto;font-family:var(--sans);font-size:9.5px;letter-spacing:.05em;
+  padding:2px 6px;border-radius:99px;flex:none;margin-top:3px;
+}
+.st.full{background:#E7EEDF;color:#4E6B3C}
+.st.part{background:var(--gold-tint);color:#7E641A}
+.st.todo{background:#EDE7DC;color:#8B8171}
+
+/* ---------- main ---------- */
+main{max-width:720px;margin:0 auto;padding:26px 18px 100px}
+.eyebrow{
+  font-family:var(--sans);font-size:11.5px;letter-spacing:.22em;color:var(--gold);
+  text-align:center;margin-bottom:10px;
+}
+.title{
+  text-align:center;font-size:29px;font-weight:700;letter-spacing:.05em;margin:0 0 4px;
+}
+.title small{display:block;font-size:14px;font-weight:400;color:var(--muted);letter-spacing:.16em;margin-top:8px}
+.rule{width:180px;height:1px;background:var(--line);margin:20px auto 24px}
+
+.toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:10px}
+.tabs{display:flex;background:#E7DECB;border-radius:12px;padding:4px;gap:2px}
+.tab{width:52px;height:44px;border-radius:9px;display:grid;place-items:center;color:var(--ink-2);transition:background .18s,color .18s}
+.tab[aria-selected="true"]{background:var(--gold);color:#FCFAF4}
+.speak{
+  width:60px;height:52px;border-radius:12px;border:1px solid var(--gold-soft);
+  display:grid;place-items:center;color:var(--gold);
+}
+.speak.on{background:var(--gold);color:#FCFAF4;border-color:var(--gold)}
+
+.card{background:var(--card);border:1px solid #EDE4D2;border-radius:18px;padding:26px 22px}
+.attrib{font-family:var(--sans);font-size:12.5px;color:var(--muted);letter-spacing:.14em;margin-bottom:20px}
+
+.seg{margin-bottom:26px}
+.seg:last-child{margin-bottom:0}
+.seg-tag{
+  font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;color:var(--gold);
+  display:inline-block;padding:2px 8px;border:1px solid var(--gold-soft);border-radius:99px;margin-bottom:12px;
+}
+.prose{font-size:19px;line-height:2.35;margin:0;text-align:justify}
+.prose mark{background:var(--gold-tint);color:inherit}
+.gatha{
+  font-size:18.5px;line-height:2.5;margin:0;letter-spacing:.08em;
+  padding-left:14px;border-left:2px solid var(--gold-soft);color:var(--ink);
+}
+.gatha mark{background:var(--gold-tint);color:inherit}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.chip{
+  font-family:var(--sans);font-size:11px;letter-spacing:.08em;
+  background:var(--card-2);border:1px solid var(--line);color:var(--ink-2);
+  padding:3px 10px;border-radius:99px;
+}
+.chip.parable{background:#F3E9CF;border-color:var(--gold-soft);color:#7E641A}
+
+.note{
+  margin-top:22px;padding-top:16px;border-top:1px solid #EBE2CF;
+  font-size:13.5px;line-height:1.9;color:var(--muted);
+}
+.note b{color:var(--ink-2);font-weight:500}
+
+.points{list-style:none;margin:0;padding:0;counter-reset:p}
+.points li{display:flex;gap:14px;margin-bottom:20px}
+.points li:last-child{margin-bottom:0}
+.points .n{
+  flex:none;width:28px;height:28px;border-radius:50%;background:var(--card-2);
+  display:grid;place-items:center;font-family:var(--sans);font-size:12px;color:var(--ink-2);margin-top:5px;
+}
+.points .k{color:var(--gold);font-weight:500;margin-right:8px}
+.points p{margin:0;font-size:16.5px;line-height:2.1;text-align:justify}
+
+.empty{text-align:center;padding:18px 0}
+.empty p{font-size:15px;color:var(--muted);line-height:2;margin:0 0 6px}
+.empty .code{font-family:var(--sans);font-size:12px;color:var(--ink-2);background:var(--card-2);padding:3px 9px;border-radius:6px}
+
+.footnav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:28px;padding-top:22px;border-top:1px solid #E7DECB}
+.navbtn{
+  display:flex;align-items:center;gap:6px;padding:14px 18px;border-radius:12px;
+  border:1px solid var(--line);color:var(--gold);font-size:15px;background:#F6F1E5;
+}
+.navbtn[disabled]{opacity:.35;color:var(--muted)}
+.pos{font-family:var(--sans);font-size:13px;color:var(--ink-2)}
+.readall{
+  display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  margin-top:16px;padding:16px;border:1px solid var(--line);border-radius:12px;
+  color:var(--gold);font-size:16px;background:#F6F1E5;
+}
+
+/* ---------- ask ---------- */
+.fab{position:fixed;right:18px;bottom:22px;width:62px;height:62px;border-radius:50%;background:var(--gold);color:#FCFAF4;display:grid;place-items:center;box-shadow:0 6px 20px rgba(33,29,23,.28);z-index:45}
+.ask{
+  position:fixed;left:0;right:0;bottom:0;max-height:82vh;z-index:60;
+  background:#FCFAF4;border-top-left-radius:20px;border-top-right-radius:20px;
+  display:flex;flex-direction:column;transform:translateY(101%);transition:transform .28s cubic-bezier(.32,.72,0,1);
+}
+.ask.on{transform:none}
+.ask-head{padding:18px 20px;background:var(--bar);border-radius:20px 20px 0 0;display:flex;justify-content:space-between;align-items:flex-start}
+.ask-head h2{margin:0;font-size:18px;font-weight:500;letter-spacing:.08em}
+.ask-head p{margin:4px 0 0;font-family:var(--sans);font-size:12px;color:var(--ink-2)}
+.ask-log{flex:1;overflow-y:auto;padding:18px 20px;min-height:180px}
+.msg{margin-bottom:14px;font-size:15.5px;line-height:2;white-space:pre-wrap}
+.msg.u{background:var(--gold-tint);padding:12px 15px;border-radius:14px 14px 4px 14px;margin-left:auto;max-width:85%}
+.msg.a{background:var(--card-2);padding:12px 15px;border-radius:14px 14px 14px 4px;max-width:92%}
+.msg.sys{color:var(--muted);font-size:13.5px;background:none;padding:0}
+.ask-in{display:flex;gap:10px;padding:14px 16px 22px;border-top:1px solid var(--line)}
+.ask-in input{
+  flex:1;padding:14px;border:1px solid var(--line);border-radius:12px;background:#F6F1E5;
+  font-family:var(--serif);font-size:15px;color:var(--ink);
+}
+.ask-in button{padding:0 18px;border-radius:12px;background:var(--gold);color:#FCFAF4;font-size:15px}
+.ask-in button[disabled]{opacity:.5}
+
+.coverage{font-family:var(--sans);font-size:11.5px;color:var(--muted);text-align:center;margin-top:26px;line-height:1.9}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:400px){.title{font-size:25px}.prose{font-size:18px}}
+</style>
+</head>
+<body>
+
+<section class="cover" id="cover">
+  <svg class="mark" width="62" height="62" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h7a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5H2zM22 4h-7a3 3 0 0 0-3 3v13a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg>
+  <h1>妙法蓮華經</h1>
+  <div class="hr"></div>
+  <p class="tr">姚秦三藏法師鳩摩羅什 譯</p>
+  <p class="lede">《妙法蓮華經》簡稱《法華經》，七卷二十八品，約六萬九千餘字。前十四品為跡門，會聲聞、緣覺、菩薩三乘同歸一佛乘；後十四品為本門，說如來久遠實成，伽耶成道只是垂跡。全經以火宅、窮子、藥草、化城、衣珠、髻珠、醫子七喻貫串義理，末後〈觀世音菩薩普門品〉自六朝以來即單行流通，別題《觀音經》。</p>
+  <p class="meta">底本：大正新脩大藏經 T09 no.262　·　科判：天台智顗《法華文句》二門六段　·　本站經文為節錄，未錄入者標示「待補」，不以推測文字充填。</p>
+  <button class="start" id="startBtn">開始閱讀
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+  </button>
+</section>
+
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="開啟目錄">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+  <div class="brand">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 4h7a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5H2zM22 4h-7a3 3 0 0 0-3 3v13a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg>
+    <h1>妙法蓮華經</h1>
+  </div>
+  <button class="icon-btn" id="prevTop" aria-label="上一品">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <span class="counter" id="counter">1 / 28</span>
+  <button class="icon-btn" id="nextTop" aria-label="下一品">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+</header>
+
+<div class="scrim" id="scrim"></div>
+
+<nav class="drawer" id="drawer" aria-label="經文目錄">
+  <div class="drawer-head">
+    <span class="t">目錄</span>
+    <span class="s">七卷 · 二十八品</span>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+</nav>
+
+<main>
+  <div class="eyebrow" id="eyebrow"></div>
+  <h2 class="title" id="title"></h2>
+  <div class="rule"></div>
+
+  <div class="toolbar">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" data-view="text" aria-selected="true" aria-label="經文">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 4h7a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5H2zM22 4h-7a3 3 0 0 0-3 3v13a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg>
+      </button>
+      <button class="tab" role="tab" data-view="gloss" aria-selected="false" aria-label="白話語譯">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-4-.9L3 21l1.9-4.6A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg>
+      </button>
+      <button class="tab" role="tab" data-view="points" aria-selected="false" aria-label="要義提點">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-4 10.5c.7.8 1 1.6 1 2.5h6c0-.9.3-1.7 1-2.5A6 6 0 0 0 12 2z"/></svg>
+      </button>
+    </div>
+    <button class="speak" id="speakBtn" aria-label="朗讀本品">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg>
+    </button>
+  </div>
+
+  <section class="card" id="card"></section>
+
+  <div class="footnav">
+    <button class="navbtn" id="prevBtn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>上一品
+    </button>
+    <span class="pos" id="pos">1 / 28</span>
+    <button class="navbtn" id="nextBtn">下一品
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
+
+  <button class="readall" id="readAll">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z"/></svg>
+    從此品開始接續朗讀
+  </button>
+
+  <p class="coverage" id="coverage"></p>
+</main>
+
+<button class="fab" id="askBtn" aria-label="開啟經義問答">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-4-.9L3 21l1.9-4.6A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg>
+</button>
+
+<section class="ask" id="ask" aria-label="經義問答">
+  <div class="ask-head">
+    <div>
+      <h2>經義問答</h2>
+      <p>就本經提問，回覆僅供參考</p>
+    </div>
+    <button class="icon-btn" id="askClose" aria-label="關閉">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="ask-log" id="askLog"></div>
+  <div class="ask-in">
+    <input id="askInput" placeholder="例如：何謂會三歸一？">
+    <button id="askSend">送出</button>
+  </div>
+</section>
+
+<script>
+/* =========================================================================
+   資料模型：三層節點
+   L1 門（跡門／本門） → L2 科判段（序分／正宗分／流通分） → L3 品 → 段（長行／重頌）
+   欄位：juan 卷次、parables 七喻標籤、version 版本註記、status 語料狀態
+   ========================================================================= */
+const T = "prose", G = "gatha";
+
+const PIN = [
+ {n:1,name:"序品",gate:"trace",div:"序分",juan:1,status:"part",
+  segs:[{t:T,x:"如是我聞：一時佛住王舍城耆闍崛山中，與大比丘眾萬二千人俱，皆是阿羅漢，諸漏已盡，無復煩惱，逮得己利，盡諸有結，心得自在。"}],
+  gloss:"我親自聽佛這樣說。那一次，佛在王舍城的靈鷲山，同在的大比丘有一萬二千人，都已斷盡煩惱、心得自在。全經自此起場，先鋪陳法會的人、時、地。",
+  points:[["六成就","序品是全經的通序與別序。通序即『如是我聞』以下六事，用意在標明說法的可稽性——誰說、對誰說、何時何地說。"],
+          ["放光現瑞","佛眉間放白毫相光，照東方萬八千世界，是別序。瑞相先行、正說後至，是法華敘事的固定節奏。"]]},
+
+ {n:2,name:"方便品",gate:"trace",div:"正宗分",juan:1,status:"part",
+  segs:[
+   {t:T,x:"唯佛與佛乃能究盡諸法實相，所謂諸法如是相、如是性、如是體、如是力、如是作、如是因、如是緣、如是果、如是報、如是本末究竟等。",note:"十如是"},
+   {t:T,x:"舍利弗！云何名諸佛世尊唯以一大事因緣故出現於世？諸佛世尊欲令眾生開佛知見，使得清淨故，出現於世；欲示眾生佛之知見故，出現於世；欲令眾生悟佛知見故，出現於世；欲令眾生入佛知見道故，出現於世。"},
+   {t:G,x:"十方佛土中，唯有一乘法，\n無二亦無三，除佛方便說。"},
+   {t:G,x:"若人散亂心，入於塔廟中，\n一稱南無佛，皆已成佛道。"}],
+  gloss:"只有佛與佛之間才能徹底窮盡一切現象的真實樣貌，也就是相、性、體、力、作、因、緣、果、報，以及從始至終前後貫通這十個面向。諸佛出現於世只為一件大事：讓眾生開啟、看見、領悟並進入佛的見地。十方國土其實只有一乘之法，說二說三都是隨機的方便。",
+  points:[["十如是","天台以此十句立『一念三千』的骨幹。此處的『實相』不是靜態本體，而是十個面向同時成立的結構描述。"],
+          ["一大事因緣","開、示、悟、入四字是次第，不是同義反覆：開是啟門，示是指出，悟是自證，入是安住。"],
+          ["會三歸一","聲聞、緣覺、菩薩三乘是方便施設，究竟只有一佛乘。此句是跡門的主命題，後十二品皆為其展開。"]]},
+
+ {n:3,name:"譬喻品",gate:"trace",div:"正宗分",juan:2,status:"part",parables:["火宅喻"],
+  segs:[
+   {t:T,x:"若國邑聚落，有大長者，其年衰邁，財富無量，多有田宅及諸僮僕。其家廣大，唯有一門，多諸人眾，一百、二百乃至五百人止住其中。"},
+   {t:G,x:"三界無安，猶如火宅，\n眾苦充滿，甚可怖畏。"}],
+  gloss:"有位年邁而極富的長者，宅第廣大卻只有一道門，屋裡住著數百人。這座宅子忽然起火，孩子們在裡面遊戲而不自知。三界並不安穩，就像這座燃燒中的房子，充滿各種苦，極其可怖。",
+  points:[["七喻之首","火宅是法華七喻的第一喻，也是唯一由佛親說、舍利弗受記之後隨即展開的譬喻。"],
+          ["三車與大白牛車","羊車、鹿車、牛車喻三乘，門外實際所賜的大白牛車喻一佛乘。此喻是『會三歸一』的圖像化。"],
+          ["唯有一門","一門是出離的唯一通道，對應唯一佛乘；宅之廣大對應三界之遍，火之無形對應苦之難覺。"]]},
+
+ {n:4,name:"信解品",gate:"trace",div:"正宗分",juan:2,status:"part",parables:["窮子喻"],
+  segs:[{t:T,x:"譬若有人，年既幼稚，捨父逃逝，久住他國，或十、二十，至五十歲。年既長大，加復窮困，馳騁四方以求衣食，漸漸遊行，遇向本國。"}],
+  gloss:"好比有人年幼時離家出走，流落他鄉數十年，長大後更加窮困，四處奔波只為求得溫飽，輾轉之間偶然回到了自己的故鄉。",
+  points:[["由弟子自說","前三品由佛開示，本品改由須菩提等四大聲聞自述領解，是全經敘事視角的一次翻轉。"],
+          ["窮子即二乘","父喻佛，窮子喻久習小法的聲聞。長者不即認子而先令除糞，喻佛不驟說大法而先施三乘。"]]},
+
+ {n:5,name:"藥草喻品",gate:"trace",div:"正宗分",juan:3,status:"part",parables:["藥草喻"],
+  version:"梵本及隋《添品妙法蓮華經》於本品後半另有一段，羅什本闕。",
+  segs:[{t:T,x:"如彼大雲，雨於一切卉木叢林及諸藥草，如其種性，具足蒙潤，各得生長。"}],
+  gloss:"就像那一片大雲，雨水普降於所有草木叢林與各類藥草，雨並無分別，草木卻依各自的種性充分受潤、各自生長。",
+  points:[["一雨與三草二木","佛法平等如一雨，眾生根器有大小如三草二木。差別不在法，在受法者的容量。"],
+          ["與火宅互補","火宅說的是佛的施設有權有實；藥草說的是法本無異而受者自別。兩喻合看，才是完整的權實論。"]]},
+
+ {n:6,name:"授記品",gate:"trace",div:"正宗分",juan:3,status:"todo"},
+
+ {n:7,name:"化城喻品",gate:"trace",div:"正宗分",juan:3,status:"part",parables:["化城喻"],
+  segs:[{t:T,x:"譬如五百由旬險難惡道，曠絕無人怖畏之處，若有多眾欲過此道至珍寶處，有一導師，聰慧明達，善知險道通塞之相。"}],
+  gloss:"譬如有一條五百由旬長的險惡道路，荒無人煙、極為可怖。一群人想通過這條路去往藏有珍寶之處，隊中有位嚮導，聰慧通達，清楚知道這條險路何處可通、何處阻塞。",
+  points:[["化城非實","嚮導見眾人中途疲極欲退，於途中化現一座城供其休息，待其力復即滅之。城喻二乘涅槃，寶所喻究竟佛果。"],
+          ["方便的正當性","化城是假的，但『中途需要休息』是真的。此喻回答了一個難題：既然三乘非實，佛說三乘是否即為誑語。"]]},
+
+ {n:8,name:"五百弟子受記品",gate:"trace",div:"正宗分",juan:4,status:"part",parables:["衣珠喻"],
+  segs:[{t:T,x:"譬如有人至親友家，醉酒而臥。是時親友官事當行，以無價寶珠繫其衣裏，與之而去。其人醉臥，都不覺知。"}],
+  gloss:"好比有人到親友家中喝醉睡去。那位親友因公務必須遠行，臨走前把一顆無價寶珠縫在他的衣服內裏就離開了。醉臥的人毫無察覺。",
+  points:[["珠在衣裏","寶珠喻本具的佛種、大乘因緣。不是後來獲得，而是早已繫上而不自知。"],
+          ["自貧非實貧","五百弟子自述得少為足，如醉人流離乞食。法華的授記不是給予，是提醒。"]]},
+
+ {n:9,name:"授學無學人記品",gate:"trace",div:"正宗分",juan:4,status:"todo"},
+
+ {n:10,name:"法師品",gate:"trace",div:"流通分",juan:4,status:"part",
+  segs:[{t:T,x:"若是善男子、善女人，我滅度後，能竊為一人說法華經乃至一句，當知是人則如來使，如來所遣，行如來事。"}],
+  gloss:"如果有善男子、善女人，在我滅度之後，即使只是私下為一個人講說《法華經》中的一句，應當知道這個人就是如來的使者，是如來所派遣的，正在做如來的事。",
+  points:[["跡門流通之始","第十品起轉入跡門流通分。主題由『佛說什麼』移向『誰來持說』。"],
+          ["乃至一句","門檻被刻意壓到最低——一人、一句。這與後文的種種功德敘述構成張力，須合看。"]]},
+
+ {n:11,name:"見寶塔品",gate:"trace",div:"流通分",juan:4,status:"part",
+  segs:[{t:T,x:"爾時佛前有七寶塔，高五百由旬，縱廣二百五十由旬，從地踊出，住在空中，種種寶物而莊校之。"}],
+  gloss:"那時佛前出現一座七寶大塔，高五百由旬、縱橫二百五十由旬，從地下湧出、停在空中，以各種寶物裝飾。",
+  points:[["多寶佛塔","過去多寶如來以本願故，凡有說《法華經》處，其塔必現以作證明。經典的權威在此被戲劇化為一個在場的見證者。"],
+          ["虛空會","自此至第二十二品，法會移於空中，即天台所謂『二處三會』的中段。空間的轉換預告了本門對佛壽的重新界定。"]]},
+
+ {n:12,name:"提婆達多品",gate:"trace",div:"流通分",juan:4,status:"part",
+  version:"本品羅什初譯本原無，係後人補入；隋《添品妙法蓮華經》將其併入〈見寶塔品〉末。通行本列為第十二品，故七卷本作二十八品，《添品》本作二十七品。此為全經版本差異最大之處。",
+  segs:[{t:T,x:"當時眾會，皆見龍女忽然之間變成男子，具菩薩行，即往南方無垢世界，坐寶蓮華，成等正覺。"}],
+  gloss:"在場大眾都看見那位龍女在轉瞬之間變化為男子身，具足菩薩之行，隨即前往南方無垢世界，坐在寶蓮華上成就正覺。",
+  points:[["惡人成佛","提婆達多是佛世的叛徒，經中卻為其授記，與龍女成佛並列，構成本品的雙重極端。"],
+          ["版本必須標註","本品的成立史使它同時是教義議題與文獻議題。任何引用都應標明所據為二十八品通行本或《添品》二十七品本。"]]},
+
+ {n:13,name:"勸持品",gate:"trace",div:"流通分",juan:4,status:"todo"},
+
+ {n:14,name:"安樂行品",gate:"trace",div:"流通分",juan:5,status:"part",parables:["髻珠喻"],
+  segs:[{t:T,x:"如轉輪聖王，見諸兵眾有大功者，心甚歡喜，以此難信之珠，久在髻中，不妄與人，而今與之。"}],
+  gloss:"就像轉輪聖王看見軍中立下大功的人，心裡非常歡喜，於是把那顆一向難以取信於人、長久藏在髮髻中、從不輕易授人的寶珠，在此刻賜給了他。",
+  points:[["髻中明珠","珠喻《法華》一乘之法，久在髻中喻四十餘年未曾顯說，今賜有功者喻末後付與堪受之機。"],
+          ["四安樂行","身、口、意、誓願四種安樂行，是惡世持經的具體行儀。此品把『持經』從勇猛誓願落回可操作的日常。"]]},
+
+ {n:15,name:"從地踊出品",gate:"origin",div:"序分",juan:5,status:"part",
+  segs:[{t:T,x:"是時娑婆世界三千大千國土地皆震裂，而於其中有無量千萬億菩薩摩訶薩同時踊出。"}],
+  gloss:"那時娑婆世界的三千大千國土，大地都震動裂開，從裂處同時湧出無量千萬億的大菩薩。",
+  points:[["本門發端","本品前半為本門序分。彌勒代眾發問：這些菩薩從何而來、誰所教化。此問直接逼出下一品的答案。"],
+          ["父少子老","佛成道未久，卻有如此多久修的弟子，時間上不成比例。這個矛盾正是〈壽量品〉開跡顯本的入口。"]]},
+
+ {n:16,name:"如來壽量品",gate:"origin",div:"正宗分",juan:5,status:"part",parables:["醫子喻"],
+  segs:[
+   {t:T,x:"然我實成佛已來，無量無邊百千萬億那由他劫。"},
+   {t:G,x:"自我得佛來，所經諸劫數，\n無量百千萬，億載阿僧祇。\n常說法教化，無數億眾生，\n令入於佛道，爾來無量劫。"},
+   {t:G,x:"每自作是念：以何令眾生，\n得入無上道，速成就佛身。"}],
+  gloss:"然而我實際成佛以來，已經過了無量無邊百千萬億那由他劫。自從我得佛以來，所經歷的劫數無量無邊，一直說法教化無數億眾生，使他們進入佛道，至今已歷無量劫。我常這樣想：要用什麼辦法，才能讓眾生進入無上之道、迅速成就佛身。",
+  points:[["開跡顯本","伽耶成道只是垂跡，久遠實成才是本地。本門的主命題在此一句成立，前十四品的『法』至此有了『說法者』的縱深。"],
+          ["良醫病子","諸子飲毒失心，父設方便詐稱己死，子聞乃悟而服藥。佛言入涅槃亦復如是——滅度是方便，非實滅。"],
+          ["時間即結構","壽量不是壽命長短的量詞，而是重新界定佛與眾生之間的時間關係。這是全經最具體系性的一品。"]]},
+
+ {n:17,name:"分別功德品",gate:"origin",div:"正宗分",juan:5,status:"todo",
+  version:"天台科判以本品前十九行偈屬本門正宗分，其後屬本門流通分，故本品跨兩段。"},
+
+ {n:18,name:"隨喜功德品",gate:"origin",div:"流通分",juan:6,status:"todo"},
+ {n:19,name:"法師功德品",gate:"origin",div:"流通分",juan:6,status:"todo"},
+
+ {n:20,name:"常不輕菩薩品",gate:"origin",div:"流通分",juan:6,status:"part",
+  segs:[{t:T,x:"我深敬汝等，不敢輕慢。所以者何？汝等皆行菩薩道，當得作佛。"}],
+  gloss:"我深深地敬重你們，不敢有絲毫輕慢。為什麼呢？因為你們都在行菩薩道，將來都會成佛。",
+  points:[["不讀誦而但行禮拜","常不輕比丘不專讀經，只向一切人禮拜說此一語，被打罵仍遠避而說之。持經在此被還原為一種對待人的方式。"],
+          ["當得作佛","此句是〈方便品〉一佛乘命題的行為化表述：既然唯有一乘，則面前任何一人皆是未來佛。"]]},
+
+ {n:21,name:"如來神力品",gate:"origin",div:"流通分",juan:6,status:"part",
+  segs:[{t:T,x:"以要言之，如來一切所有之法、如來一切自在神力、如來一切祕要之藏、如來一切甚深之事，皆於此經宣示顯說。"}],
+  gloss:"總括地說，如來所有的法、一切自在的神力、一切祕密的寶藏、一切極深的事，都在這部經中公開宣示、明白解說。",
+  points:[["四句總結","此四句是全經的自我定位：法華不是眾多經典之一，而是佛法的總持與盡說。"],
+          ["付囑之前","本品的神力示現是為了下一品的付囑作背書。順序不可倒讀。"]]},
+
+ {n:22,name:"囑累品",gate:"origin",div:"流通分",juan:6,status:"part",
+  version:"羅什本置本品於第二十二，梵本及《添品》本置於全經之末。品序差異影響『二處三會』的收束方式。",
+  segs:[{t:T,x:"爾時釋迦牟尼佛從法座起，現大神力，以右手摩無量菩薩摩訶薩頂，而作是言：我於無量百千萬億阿僧祇劫，修習是難得阿耨多羅三藐三菩提法，今以付囑汝等。"}],
+  gloss:"那時釋迦牟尼佛從法座起身，示現大神力，用右手摩無量大菩薩的頭頂，說：我在無量百千萬億阿僧祇劫中修習這難得的無上正等正覺之法，現在把它託付給你們。",
+  points:[["摩頂付囑","付囑是虛空會的收束動作。此後法會自空中還歸靈鷲山，敘事回到地面。"],
+          ["品序爭議","本品在梵本中位於全經之末，於羅什本則居中。此差異須在引用時標明所據版本。"]]},
+
+ {n:23,name:"藥王菩薩本事品",gate:"origin",div:"流通分",juan:6,status:"part",
+  segs:[{t:T,x:"此法華經亦復如是，能令眾生離一切苦、一切病痛，能解一切生死之縛。"}],
+  gloss:"這部《法華經》也是這樣，能讓眾生脫離一切苦、一切病痛，能解開一切生死的束縛。",
+  points:[["本事類諸品之始","自本品至第二十七品，多以菩薩本生事蹟勸持，敘事重心由義理轉向典範人物。"],
+          ["燒身供養的讀法","一切眾生喜見菩薩燃身供佛一節，歷代註疏多以『捨最重之執』作象徵解，不作行為規範解。此點宜在註中標明。"]]},
+
+ {n:24,name:"妙音菩薩品",gate:"origin",div:"流通分",juan:7,status:"todo"},
+
+ {n:25,name:"觀世音菩薩普門品",gate:"origin",div:"流通分",juan:7,status:"part",
+  version:"本品長行為羅什所譯；末後重頌（世尊妙相具以下）羅什本原無，係取隋闍那崛多、笈多《添品妙法蓮華經》之譯文補入，後成通行定本。本品自六朝以來即單行流通，別題《觀音經》。",
+  segs:[
+   {t:T,x:"若有無量百千萬億眾生受諸苦惱，聞是觀世音菩薩，一心稱名，觀世音菩薩即時觀其音聲，皆得解脫。"},
+   {t:G,x:"真觀清淨觀，廣大智慧觀，\n悲觀及慈觀，常願常瞻仰。"}],
+  gloss:"如果有無量百千萬億眾生正受著種種苦惱，聽聞觀世音菩薩，一心稱念其名，觀世音菩薩即時聽見這些聲音，他們都能得到解脫。",
+  points:[["普門","門是入處，普門即無所不入。三十三應身說的是同一原則：應以何身得度，即現何身。"],
+          ["重頌的來歷","偈頌部分非羅什原譯。這一點不影響持誦傳統，但影響文獻引用——引偈時應註明其譯者與併入時代。"],
+          ["單行的後果","本品長期獨立流通，使多數讀者由此進入法華，卻未必讀過前二十四品。單行本的普及是傳播史事實，不是經義層級。"]]},
+
+ {n:26,name:"陀羅尼品",gate:"origin",div:"流通分",juan:7,status:"todo",
+  version:"本品所載陀羅尼為梵語音譯，歷代刻本用字互有出入，校錄時須以底本為準，不得以記憶補字。"},
+
+ {n:27,name:"妙莊嚴王本事品",gate:"origin",div:"流通分",juan:7,status:"todo"},
+ {n:28,name:"普賢菩薩勸發品",gate:"origin",div:"流通分",juan:7,status:"todo"}
+];
+
+const GATE = {
+  trace:{name:"跡門",sub:"開權顯實",range:"第一品—第十四品"},
+  origin:{name:"本門",sub:"開跡顯本",range:"第十五品—第二十八品"}
+};
+const DIVORDER = ["序分","正宗分","流通分"];
+const JUAN_CN = ["","一","二","三","四","五","六","七"];
+const NUM_CN = ["","一","二","三","四","五","六","七","八","九","十","十一","十二","十三","十四","十五","十六","十七","十八","十九","二十","二十一","二十二","二十三","二十四","二十五","二十六","二十七","二十八"];
+
+const PARABLE_HOME = {"火宅喻":3,"窮子喻":4,"藥草喻":5,"化城喻":7,"衣珠喻":8,"髻珠喻":14,"醫子喻":16};
+
+/* ---------------- 狀態 ---------------- */
+let idx = 0, view = "text", speaking = false, queue = [];
+
+/* ---------------- 目錄（多層折疊） ---------------- */
+function buildDrawer(){
+  const box = document.getElementById("drawerBody");
+  let h = "";
+
+  h += `<button class="leaf" data-go="cover" style="padding:15px 18px;font-size:16px;color:var(--ink);border-bottom:1px solid #EFE7D6"><span class="no"></span>首頁 · 經題</button>`;
+
+  h += `<details class="nav" open><summary><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>總論 · 經題與科判</summary>
+        <button class="leaf" data-go="intro" style="padding-left:34px"><span class="no"></span>七卷二十八品的讀法</button></details>`;
+
+  for(const gk of ["trace","origin"]){
+    const g = GATE[gk];
+    h += `<details class="nav"${gk==="trace"?" open":""}>
+      <summary><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+      ${g.name} · ${g.sub}<span class="sub">${g.range}</span></summary>`;
+    for(const d of DIVORDER){
+      const list = PIN.filter(p=>p.gate===gk && p.div===d);
+      if(!list.length) continue;
+      h += `<details class="nav"${(gk==="trace"&&d==="正宗分")?" open":""}>
+        <summary><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+        ${d}<span class="cnt">${list.length} 品</span></summary>`;
+      for(const p of list){
+        h += `<button class="leaf" data-go="${p.n}">
+          <span class="no">${p.n}</span>
+          <span>${p.name}第${NUM_CN[p.n]}</span>
+          <span class="st ${p.status}">${p.status==="part"?"節錄":"待補"}</span>
+        </button>`;
+      }
+      h += `</details>`;
+    }
+    h += `</details>`;
+  }
+
+  h += `<details class="nav"><summary><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+        法華七喻<span class="sub">跨品索引</span></summary>`;
+  for(const [k,v] of Object.entries(PARABLE_HOME)){
+    h += `<button class="leaf" data-go="${v}"><span class="no"></span><span>${k}</span><span class="st part">第${NUM_CN[v]}品</span></button>`;
+  }
+  h += `</details>`;
+
+  h += `<details class="nav"><summary><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+        版本與校勘<span class="sub">${PIN.filter(p=>p.version).length} 則</span></summary>`;
+  for(const p of PIN.filter(p=>p.version)){
+    h += `<button class="leaf" data-go="${p.n}"><span class="no">${p.n}</span><span>${p.name}第${NUM_CN[p.n]}</span></button>`;
+  }
+  h += `</details>`;
+
+  h += `<details class="nav"><summary><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+        抄經 · 開經偈</summary>
+        <button class="leaf" data-go="copy" style="padding-left:34px"><span class="no"></span>無上甚深微妙法…</button></details>`;
+
+  box.innerHTML = h;
+  box.querySelectorAll("[data-go]").forEach(b=>{
+    b.addEventListener("click",()=>{
+      const v = b.dataset.go;
+      if(v==="cover") showCover();
+      else if(v==="intro") go(-1,"intro");
+      else if(v==="copy") go(-1,"copy");
+      else go(PIN.findIndex(p=>p.n===+v));
+      closeDrawer();
+    });
+  });
+}
+
+/* ---------------- 渲染 ---------------- */
+let special = null;
+
+function render(){
+  const card = document.getElementById("card");
+  const eb = document.getElementById("eyebrow");
+  const ti = document.getElementById("title");
+
+  if(special){
+    document.getElementById("counter").textContent = "—";
+    document.getElementById("pos").textContent = "—";
+    if(special==="intro"){
+      eb.textContent = "體例";
+      ti.innerHTML = `七卷二十八品的讀法<small>姚秦 · 鳩摩羅什 譯</small>`;
+      card.innerHTML = `<div class="attrib">本站體例 · 自撰</div>
+      <div class="seg"><p class="prose">本經目錄依三層節點編排：先分跡門與本門，各門之下再分序分、正宗分、流通分，最末才是品。此一分法出自天台智顗《法華文句》，是歷代科判中影響最廣者，但非唯一——道生、吉藏另有判法，引用時應標明所據。</p></div>
+      <div class="seg"><p class="prose">品內經文再分長行與重頌兩種節點。長行為散說，重頌為韻誦，兩者常就同一義理先後表述。本站以左側金線標示重頌，字距亦異，俾便區辨。</p></div>
+      <div class="seg"><p class="prose">法華七喻散在七品之中，非依序集中，故另立跨品索引一層。凡涉版本異同者，於該品下設「版本註記」，不併入經文。</p></div>
+      <div class="note"><b>語料狀態</b>　本站經文為節錄，非全文。已錄入者標「節錄」，未錄入者標「待補」。全文校錄應以《大正新脩大藏經》第九冊 no.262 為底本，逐品比對後補入，不得由記憶補字。</div>`;
+    } else {
+      eb.textContent = "抄經";
+      ti.innerHTML = `開經偈<small>非本經正文</small>`;
+      card.innerHTML = `<div class="attrib">相傳 唐 · 武則天 撰</div>
+      <div class="seg"><span class="seg-tag">偈</span>
+      <p class="gatha">無上甚深微妙法，百千萬劫難遭遇；\n我今見聞得受持，願解如來真實義。</p></div>
+      <div class="note"><b>考訂</b>　此四句為誦經前的通用開經偈，相傳為武則天所作，並非《法華經》經文，亦不見於《大正藏》T262 任何一品。抄經頁面收錄之，須與經文分欄標示，避免誤引。</div>`;
+    }
+    document.getElementById("prevBtn").disabled = true;
+    document.getElementById("nextBtn").disabled = true;
+    document.getElementById("prevTop").disabled = true;
+    document.getElementById("nextTop").disabled = true;
+    return;
+  }
+
+  const p = PIN[idx], g = GATE[p.gate];
+  eb.textContent = `${g.name} · ${p.div} · 卷${JUAN_CN[p.juan]}`;
+  ti.innerHTML = `${p.name}第${NUM_CN[p.n]}<small>姚秦 · 鳩摩羅什 譯</small>`;
+  document.getElementById("counter").textContent = `${p.n} / 28`;
+  document.getElementById("pos").textContent = `${p.n} / 28`;
+  document.getElementById("prevBtn").disabled = idx===0;
+  document.getElementById("nextBtn").disabled = idx===PIN.length-1;
+  document.getElementById("prevTop").disabled = idx===0;
+  document.getElementById("nextTop").disabled = idx===PIN.length-1;
+
+  let h = "";
+  if(view==="text"){
+    h += `<div class="attrib">姚秦 · 鳩摩羅什 譯　│　大正藏 T09 no.262</div>`;
+    if(!p.segs){
+      h += emptyBlock(p);
+    } else {
+      p.segs.forEach(s=>{
+        h += `<div class="seg"><span class="seg-tag">${s.t===G?"重頌":"長行"}${s.note?" · "+s.note:""}</span>
+              <p class="${s.t===G?"gatha":"prose"}">${s.x}</p></div>`;
+      });
+      const chips = [];
+      (p.parables||[]).forEach(k=>chips.push(`<span class="chip parable">七喻 · ${k}</span>`));
+      chips.push(`<span class="chip">卷${JUAN_CN[p.juan]}</span>`);
+      chips.push(`<span class="chip">${g.name}／${p.div}</span>`);
+      chips.push(`<span class="chip">節錄 · 非全品</span>`);
+      h += `<div class="chips">${chips.join("")}</div>`;
+    }
+    if(p.version) h += `<div class="note"><b>版本註記</b>　${p.version}</div>`;
+    if(p.segs) h += `<div class="note">本品僅錄關鍵段落，未含全文。全品校錄以 T09 no.262 為底本。</div>`;
+  }
+  else if(view==="gloss"){
+    h += `<div class="attrib">白話語譯 · 本站自撰</div>`;
+    h += p.gloss ? `<div class="seg"><p class="prose">${p.gloss}</p></div>`
+                 : emptyBlock(p,"語譯隨經文一併補入。");
+    if(p.gloss) h += `<div class="note">語譯僅為理解之助，非權威定本。經義以原文為準，深究請依歷代註疏。</div>`;
+  }
+  else {
+    const n = p.points ? p.points.length : 0;
+    h += `<div class="attrib">要義提點 · 共 ${n} 則</div>`;
+    if(!n){ h += emptyBlock(p,"要義提點隨經文一併補入。"); }
+    else {
+      h += `<ul class="points">` + p.points.map((pt,i)=>
+        `<li><span class="n">${i+1}</span><p><span class="k">${pt[0]}</span>${pt[1]}</p></li>`).join("") + `</ul>`;
+    }
+  }
+  card.innerHTML = h;
+
+  document.querySelectorAll(".leaf").forEach(b=>b.classList.toggle("active", b.dataset.go===String(p.n)));
+  const done = PIN.filter(x=>x.status==="part").length;
+  document.getElementById("coverage").textContent =
+    `語料覆蓋　${done} / 28 品已錄入節錄，${28-done} 品待補　·　底本：大正新脩大藏經 T09 no.262　·　科判：天台《法華文句》`;
+}
+
+function emptyBlock(p, extra){
+  return `<div class="empty">
+    <p>本品尚未錄入。</p>
+    <p>${extra||"校錄後即可顯示，未校錄前不以推測文字充填。"}</p>
+    <p style="margin-top:14px"><span class="code">T09 no.262 · 卷${JUAN_CN[p.juan]} · ${p.name}第${NUM_CN[p.n]}</span></p>
+  </div>`;
+}
+
+/* ---------------- 導覽 ---------------- */
+function go(i, sp){
+  stopSpeak();
+  special = sp || null;
+  if(!sp) idx = Math.max(0, Math.min(PIN.length-1, i));
+  render();
+  window.scrollTo({top:0,behavior:"instant"});
+}
+document.getElementById("prevBtn").onclick = ()=>go(idx-1);
+document.getElementById("nextBtn").onclick = ()=>go(idx+1);
+document.getElementById("prevTop").onclick = ()=>go(idx-1);
+document.getElementById("nextTop").onclick = ()=>go(idx+1);
+
+document.querySelectorAll(".tab").forEach(t=>{
+  t.onclick = ()=>{
+    document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected","false"));
+    t.setAttribute("aria-selected","true");
+    view = t.dataset.view;
+    if(!special) render();
+  };
+});
+
+/* ---------------- 抽屜 ---------------- */
+const drawer = document.getElementById("drawer"), scrim = document.getElementById("scrim");
+function openDrawer(){drawer.classList.add("on");scrim.classList.add("on")}
+function closeDrawer(){drawer.classList.remove("on");scrim.classList.remove("on")}
+document.getElementById("menuBtn").onclick = openDrawer;
+scrim.onclick = closeDrawer;
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeDrawer();closeAsk()}});
+
+/* ---------------- 朗讀 ---------------- */
+function textOf(p){
+  if(!p.segs) return "";
+  return `${p.name}第${NUM_CN[p.n]}。` + p.segs.map(s=>s.x.replace(/\n/g,"")).join("");
+}
+function stopSpeak(){
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
+  speaking = false; queue = [];
+  document.getElementById("speakBtn").classList.remove("on");
+}
+function speak(list){
+  if(!window.speechSynthesis){alert("此瀏覽器不支援語音朗讀。");return}
+  stopSpeak();
+  queue = list.filter(t=>t);
+  if(!queue.length) return;
+  speaking = true;
+  document.getElementById("speakBtn").classList.add("on");
+  let i = 0;
+  const next = ()=>{
+    if(i>=queue.length){stopSpeak();return}
+    const u = new SpeechSynthesisUtterance(queue[i++]);
+    u.lang = "zh-TW"; u.rate = .86;
+    u.onend = next; u.onerror = ()=>stopSpeak();
+    window.speechSynthesis.speak(u);
+  };
+  next();
+}
+document.getElementById("speakBtn").onclick = ()=>{
+  if(speaking){stopSpeak();return}
+  if(special){speak([document.getElementById("card").innerText]);return}
+  speak([textOf(PIN[idx])]);
+};
+document.getElementById("readAll").onclick = ()=>{
+  if(special) return;
+  speak(PIN.slice(idx).map(textOf));
+};
+
+/* ---------------- 經義問答 ---------------- */
+const askEl = document.getElementById("ask"), log = document.getElementById("askLog");
+function openAsk(){
+  askEl.classList.add("on");
+  if(!log.children.length) push("sys","請就《法華經》提問。可以問字句、科判、名相，也可以問某一品在說什麼。");
+}
+function closeAsk(){askEl.classList.remove("on")}
+document.getElementById("askBtn").onclick = openAsk;
+document.getElementById("askClose").onclick = closeAsk;
+function push(cls,txt){
+  const d = document.createElement("div");
+  d.className = "msg "+cls; d.textContent = txt;
+  log.appendChild(d); log.scrollTop = log.scrollHeight;
+  return d;
+}
+async function send(){
+  const inp = document.getElementById("askInput"), btn = document.getElementById("askSend");
+  const q = inp.value.trim(); if(!q) return;
+  inp.value = ""; push("u",q);
+  btn.disabled = true;
+  const wait = push("a","…");
+  const p = special ? null : PIN[idx];
+  const ctx = p ? `讀者目前所在：${GATE[p.gate].name}／${p.div}／卷${JUAN_CN[p.juan]}／${p.name}第${NUM_CN[p.n]}。`
+                : "讀者目前在體例或抄經頁面。";
+  try{
+    const r = await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:1000,messages:[{role:"user",content:
+`你是《妙法蓮華經》（姚秦鳩摩羅什譯，大正藏 T09 no.262）的閱讀輔助。回答須用繁體中文，語氣平實，不用條列符號。
+
+規則：
+一、引用經文時，只引你確有把握的字句，並標明品名；沒有把握就說明無法確引，改以義理概述，不得憑印象補字。
+二、涉及科判時，說明所據為天台智顗《法華文句》，並提醒尚有他家判法。
+三、涉及〈提婆達多品〉、〈普門品〉重頌、〈囑累品〉品序等版本問題時，主動指出其文獻背景。
+四、不作宗教勸信，不代為決定信仰立場。
+五、回覆以三百字為度。
+
+${ctx}
+
+讀者提問：${q}`}]})
+    });
+    const d = await r.json();
+    const txt = (d.content||[]).filter(x=>x.type==="text").map(x=>x.text).join("\n").trim();
+    wait.textContent = txt || "沒有取得回覆內容，請再試一次。";
+  }catch(e){
+    wait.textContent = "無法連線至問答服務。此功能需在支援的執行環境中開啟；經文、語譯與要義不受影響，仍可正常閱讀。";
+  }
+  btn.disabled = false;
+}
+document.getElementById("askSend").onclick = send;
+document.getElementById("askInput").addEventListener("keydown",e=>{if(e.key==="Enter")send()});
+
+/* ---------------- 封面 ---------------- */
+function showCover(){
+  stopSpeak(); closeAsk();
+  document.body.classList.add("cover-on");
+  window.scrollTo({top:0,behavior:"instant"});
+}
+function hideCover(){
+  document.body.classList.remove("cover-on");
+  window.scrollTo({top:0,behavior:"instant"});
+}
+document.getElementById("startBtn").onclick = ()=>{
+  hideCover();
+  special = null; idx = 0; render();
+};
+
+/* ---------------- 啟動 ---------------- */
+buildDrawer();
+render();
+showCover();
+</script>
+</body>
+</html>
